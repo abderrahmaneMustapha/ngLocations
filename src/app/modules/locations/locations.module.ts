@@ -6,12 +6,14 @@ import { DataListComponent } from './component/data-list/data-list.component';
 import { DxBoxModule, DxButtonModule, DxDataGridModule, DxFormModule, DxPopupModule } from 'devextreme-angular';
 import { FormsModule } from '@angular/forms';
 import { RegionsComponent } from './page/regions/regions.component';
+import { CountysComponent } from './page/countys/countys.component';
 
 @NgModule({
   declarations: [
     CountriesComponent,
     DataListComponent,
     RegionsComponent,
+    CountysComponent,
   ],
   imports: [
     CommonModule,
