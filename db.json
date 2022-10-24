@@ -1,0 +1,32 @@
+{
+  "countries": [
+    {"code": "DZD", "description": "azeaze", "isDefault": true, "name": "Algeria", "uid": 0},
+    {"code": "KSA", "description": "azeaze", "isDefault": true, "name": "Saudi Arabia", "uid": 1},
+    {"code": "TN", "description": "azeaze", "isDefault": true, "name": "Tunisia", "uid": 2},
+    {"code": "MA", "description": "azeaze", "isDefault": true, "name": "Morocco", "uid": 3}
+  ],
+  "regions": [
+    {"code": "DZD01", "country":{"code": "DZD", "description": "azeaze", "isDefault": true, "name": "Algeria", "uid": 0}, "description": "azeaze", "isDefault": true, "name": "REGION DZ 01", "uid": 0},
+    {"code": "DZD02", "country":{"code": "DZD", "description": "azeaze", "isDefault": true, "name": "Algeria", "uid": 0}, "description": "azeaze", "isDefault": true, "name": "REGION DZ 02", "uid": 1},
+    {"code": "DZD03", "country":{"code": "DZD", "description": "azeaze", "isDefault": true, "name": "Algeria", "uid": 0}, "description": "azeaze", "isDefault": true, "name": "REGION DZ 03", "uid": 2}
+  ],
+  "countys": [
+    {"code": "DZD011", "country":{"code": "DZD", "description": "azeaze", "isDefault": true, "name": "Algeria", "uid": 0}, "description": "azeaze", "isDefault": true, "name": "COUNTY DZ 11", "uid": 0},
+    {"code": "DZD012", "country":{"code": "DZD", "description": "azeaze", "isDefault": true, "name": "Algeria", "uid": 0}, "description": "azeaze", "isDefault": true, "name": "COUNTY DZ 12", "uid": 1},
+    {"code": "DZD013", "country":{"code": "DZD", "description": "azeaze", "isDefault": true, "name": "Algeria", "uid": 0}, "description": "azeaze", "isDefault": true, "name": "COUNTY DZ 13", "uid": 2}
+  ],
+  "states": [
+    {"code": "14", "region":{"code": "DZD01", "country":{"code": "DZD", "description": "azeaze", "isDefault": true, "name": "Algeria", "uid": 0}, "description": "azeaze", "isDefault": true, "name": "REGION DZ 01", "uid": 0}, "description": "azeaze", "isDefault": true, "name": "Tiaret", "uid": 0},
+    {"code": "16", "region":{"code": "DZD03", "country":{"code": "DZD", "description": "azeaze", "isDefault": true, "name": "Algeria", "uid": 0}, "description": "azeaze", "isDefault": true, "name": "REGION DZ 03", "uid": 2}, "description": "azeaze", "isDefault": true, "name": "Algiers", "uid": 1},
+    {"code": "48", "region":{"code": "DZD03", "country":{"code": "DZD", "description": "azeaze", "isDefault": true, "name": "Algeria", "uid": 0}, "description": "azeaze", "isDefault": true, "name": "REGION DZ 03", "uid": 2}, "description": "azeaze", "isDefault": true, "name": "Ghilizane", "uid": 2},
+    {"code": "31", "region":{"code": "DZD01", "country":{"code": "DZD", "description": "azeaze", "isDefault": true, "name": "Algeria", "uid": 0}, "description": "azeaze", "isDefault": true, "name": "REGION DZ 01", "uid": 0}, "description": "azeaze", "isDefault": true, "name": "Oran", "uid": 3}
+  ],
+  "districtes": [
+    {"code": "141", "state": {"code": "14", "region":{"code": "DZD01", "country":{"code": "DZD", "description": "azeaze", "isDefault": true, "name": "Algeria", "uid": 0}, "description": "azeaze", "isDefault": true, "name": "REGION DZ 01", "uid": 0}, "description": "azeaze", "isDefault": true, "name": "Tiaret", "uid": 0}, "description": "azeaze", "isDefault": true, "name": "Sougeur", "uid": 0},
+    {"code": "142", "state": {"code": "14", "region":{"code": "DZD01", "country":{"code": "DZD", "description": "azeaze", "isDefault": true, "name": "Algeria", "uid": 0}, "description": "azeaze", "isDefault": true, "name": "REGION DZ 01", "uid": 0}, "description": "azeaze", "isDefault": true, "name": "Tiaret", "uid": 0}, "description": "azeaze", "isDefault": true, "name": "Chelala", "uid": 1}
+  ],
+  "blocks": [
+    {"code": "1411", "district": {"code": "141", "state": {"code": "14", "region":{"code": "DZD01", "country":{"code": "DZD", "description": "azeaze", "isDefault": true, "name": "Algeria", "uid": 0}, "description": "azeaze", "isDefault": true, "name": "REGION DZ 01", "uid": 0}, "description": "azeaze", "isDefault": true, "name": "Tiaret", "uid": 0}, "description": "azeaze", "isDefault": true, "name": "Sougeur", "uid": 0}, "description": "azeaze", "isDefault": true, "name": "Sougeur", "uid": 0},
+    {"code": "1412", "district": {"code": "141", "state": {"code": "14", "region":{"code": "DZD01", "country":{"code": "DZD", "description": "azeaze", "isDefault": true, "name": "Algeria", "uid": 0}, "description": "azeaze", "isDefault": true, "name": "REGION DZ 01", "uid": 0}, "description": "azeaze", "isDefault": true, "name": "Tiaret", "uid": 0}, "description": "azeaze", "isDefault": true, "name": "Sougeur", "uid": 0}, "description": "azeaze", "isDefault": true, "name": "Chelala", "uid": 1}
+  ]
+}

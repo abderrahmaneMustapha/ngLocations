@@ -1,0 +1,41 @@
+<dx-box
+  direction="row"
+  style="margin: 1em 0 2em 0"
+>
+    <dxi-item  baseSize="150" class="box-item orange">
+      <dx-button
+        [text]="'Add new ' +  title.single"
+        (onClick)="openModal()"
+      >
+      </dx-button>
+    </dxi-item>
+</dx-box>
+
+<dx-popup
+  [width]="500"
+  [height]="250"
+  [showTitle]="true"
+  [title]="'Add new ' +  title.single"
+  [dragEnabled]="false"
+  [hideOnOutsideClick]="true"
+  [showCloseButton]="false"
+  [(visible)]="popupVisible"
+  container=".dx-viewport"
+>
+  <form (submit)="handleSubmit($event)">
+    <dx-form [colCount]="1">
+      <dxi-item dataField="code" [isRequired]="true"></dxi-item>
+      <dxi-item dataField="name" [isRequired]="true"></dxi-item>
+      <dxi-item dataField="description" [isRequired]="true"></dxi-item>
+      <dxi-item
+        itemType="button"
+        [buttonOptions]="addDataButtonOptions"
+      >
+      </dxi-item>
+    </dx-form>
+  </form>
+</dx-popup>
+
+<dx-data-grid  [dataSource]="data" (onInitNewRow)="onInitNewRow($event)">
+  <dxi-column *ngFor="let col of cols" [dataField]="col.field" [dataType]="col.type"></dxi-column>
+</dx-data-grid>

@@ -1,0 +1,24 @@
+<dx-drawer
+  [openedStateMode]="selectedOpenMode"
+  [position]="selectedPosition"
+  [revealMode]="selectedRevealMode"
+  template="template"
+  [(opened)]="isDrawerOpen"
+>
+  <div *dxTemplate="let data of 'template'" style="width: 200px">
+    <dx-list
+      class="panel-list dx-theme-accent-as-background-color"
+      [dataSource]="navigation"
+      [hoverStateEnabled]="false"
+      [activeStateEnabled]="false"
+      [focusStateEnabled]="false"
+      itemTemplate="listItem"
+    >
+      <a *dxTemplate="let itemData of 'listItem'; let itemIndex = index" [routerLink]="itemData.url">
+        <i [ngClass]="'dx-icon dx-icon-' + itemData.icon"></i>
+        <span style="margin: 1em" class="dx-theme-text-color">{{itemData.text}}</span>
+      </a>
+    </dx-list>
+  </div>
+  <ng-content></ng-content>
+</dx-drawer>

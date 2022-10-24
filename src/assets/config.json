@@ -1,0 +1,5 @@
+{
+  "countriesUrl": "http://localhost:3000/countries",
+  "regionsUrl": "http://localhost:3000/regions",
+  "countysUrl": "http://localhost:3000/countys"
+}
