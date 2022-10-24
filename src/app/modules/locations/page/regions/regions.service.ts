@@ -25,7 +25,7 @@ export class RegionsService {
 
       }
 
-    return this.http.post(config.countriesUrl, createParams)
+    return this.http.post(config.regionsUrl, createParams)
   }
 
   updateRegion (region: DbRegion, config: Config) {

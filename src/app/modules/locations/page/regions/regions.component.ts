@@ -58,6 +58,7 @@ export class RegionsComponent implements OnInit {
   }
 
   addRegion(event: any) {
+    console.log(event)
     let id = this.configService.getLastId(this.regions) + 1
     this.service.addRegion(event, this.config, id).subscribe(val => console.log(val))
   }
