@@ -7,6 +7,7 @@ import { DxBoxModule, DxButtonModule, DxDataGridModule, DxFormModule, DxPopupMod
 import { FormsModule } from '@angular/forms';
 import { RegionsComponent } from './page/regions/regions.component';
 import { CountysComponent } from './page/countys/countys.component';
+import { StatesComponent } from './page/states/states.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { CountysComponent } from './page/countys/countys.component';
     DataListComponent,
     RegionsComponent,
     CountysComponent,
+    StatesComponent,
   ],
   imports: [
     CommonModule,

@@ -1,5 +1,8 @@
 {
   "countriesUrl": "http://localhost:3000/countries",
   "regionsUrl": "http://localhost:3000/regions",
-  "countysUrl": "http://localhost:3000/countys"
+  "countysUrl": "http://localhost:3000/countys",
+  "statesUrl": "http://localhost:3000/states",
+  "districtsUrl": "http://localhost:3000/districts",
+  "blocksUrl": "http://localhost:3000/blocks"
 }

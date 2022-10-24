@@ -125,27 +125,6 @@
   ],
   "states": [
     {
-      "code": "14",
-      "region": {
-        "code": "DZD01",
-        "country": {
-          "code": "DZD",
-          "description": "azeaze",
-          "isDefault": true,
-          "name": "Algeria",
-          "id": 0
-        },
-        "description": "azeaze",
-        "isDefault": true,
-        "name": "REGION DZ 01",
-        "id": 0
-      },
-      "description": "azeaze",
-      "isDefault": true,
-      "name": "Tiaret",
-      "id": 0
-    },
-    {
       "code": "16",
       "region": {
         "code": "DZD03",
@@ -207,6 +186,27 @@
       "isDefault": true,
       "name": "Oran",
       "id": 3
+    },
+    {
+      "id": 4,
+      "isDefault": true,
+      "code": "odl",
+      "description": "Ouald lili",
+      "name": "Ouad lili",
+      "region": {
+        "id": 3,
+        "isDefault": true,
+        "code": "Az",
+        "description": "zaeazeazeaze",
+        "name": "azeaze",
+        "country": {
+          "code": "TN",
+          "description": "azeaze",
+          "isDefault": true,
+          "name": "Tunisia",
+          "id": 2
+        }
+      }
     }
   ],
   "districtes": [
