@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { RegionsComponent } from './page/regions/regions.component';
 import { CountysComponent } from './page/countys/countys.component';
 import { StatesComponent } from './page/states/states.component';
+import { DistrictsComponent } from './page/districts/districts.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { StatesComponent } from './page/states/states.component';
     RegionsComponent,
     CountysComponent,
     StatesComponent,
+    DistrictsComponent,
   ],
   imports: [
     CommonModule,

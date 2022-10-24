@@ -209,9 +209,13 @@
       }
     }
   ],
-  "districtes": [
+  "districts": [
     {
+      "id": 0,
+      "isDefault": true,
       "code": "141",
+      "description": "azeaze",
+      "name": "141",
       "state": {
         "code": "14",
         "region": {
@@ -230,13 +234,9 @@
         },
         "description": "azeaze",
         "isDefault": true,
-        "name": "Tiaret",
+        "name": "Ouad lili",
         "id": 0
-      },
-      "description": "azeaze",
-      "isDefault": true,
-      "name": "Sougeur",
-      "id": 0
+      }
     },
     {
       "code": "142",
