@@ -1,14 +1,10 @@
-import { Component, ViewChild } from '@angular/core';
-import { DxDataGridComponent } from "devextreme-angular";
+import { Component, Input, ViewChild, OnInit, Output, EventEmitter } from '@angular/core';
+import { DxDataGridComponent, DxFormComponent } from "devextreme-angular";
 import { Observable } from 'rxjs';
 import { catchError} from 'rxjs/operators';
-
-interface Country {
-  code: number | string,
-  description: string,
-  name: string
-}
-
+import { CountriesService } from '../../page/countries/contries.service';
+import { Country, DbCountry } from '../../page/countries/countries.model';
+import { Field, formField, Title } from './data-list.model';
 
 @Component({
   selector: 'app-data-list',
@@ -16,44 +12,54 @@ interface Country {
   styleUrls: ['./data-list.component.scss']
 })
 
-export class DataListComponent {
-  title = {single: 'country', plural: "countries"}
-  cols = [{field: "code", type: "string"}, {field: "name", type: "string"}, {field: "description", type: "string"}]
-  data:Country[] = []
-  popupVisible = false;
-  addDataButtonOptions: any;
+export class DataListComponent implements OnInit {
+  @Input() title: Title
+  @Input() cols: Field[]
+  @Input() data: DbCountry[] = []
+  @Input() fields = []
+  @Input() formFields: any[] = []
 
+  @Output() add: EventEmitter<any> = new EventEmitter()
+  @Output() update: EventEmitter<any> = new EventEmitter()
+  @Output() delete: EventEmitter<any> = new EventEmitter()
+
+  @ViewChild(DxFormComponent, { static: false }) form:DxFormComponent;
   @ViewChild(DxDataGridComponent, { static: false }) dataGrid: DxDataGridComponent;
 
-  constructor() {
-    this.data = [
-      {code: "DZD", name: "Algeria", description: "azeaze"},
-      {code: "KSA", name: "Saudi Arabia",description: "azeaze"},
-      {code: "TN",  name: "Tunisia", description: "azeaze"},
-      {code: "MA", name: "Morocco", description: "azeaze"}
-    ]
+  popupVisible = false
+  addDataButtonOptions = {
+    text: 'Submit',
+    type: 'success',
+    useSubmitBehavior: true,
+  }
 
-    this.addDataButtonOptions =  {
-      text: "Submit",
-      useSubmitBehavior: true
-    }
+  constructor() {console.log(this.fields)}
+
+  ngOnInit(): void {
+    this.formFields.push({ editorType: "dxButton", itemType: "button", buttonOptions: this.addDataButtonOptions})
   }
 
   openModal () {
     this.popupVisible = !this.popupVisible
   }
 
-  onInitNewRow (e:any) {
-    e.data.code = "DZD";
-    e.data.name = "SDAZ";
-    e.data.description = "azeazeazeaze"
-  }
-
-  addRow () {
-    this.dataGrid.instance.addRow();
-  }
-
   handleSubmit (event: any) {
+    event.preventDefault()
+    let data: any = {}
+    this.formFields.forEach((field) => {
+      if(field.dataField) {
+        data[field.dataField] = this.form.instance.option('formData')[field.dataField]
+      }
+    })
+    this.add.emit(data)
     this.openModal()
+  }
+
+  updateData (event:any) {
+    this.update.emit(event.data)
+  }
+
+  removeData (event:any) {
+    this.delete.emit(event.data)
   }
 }

@@ -1,1 +1,10 @@
-<app-data-list></app-data-list>
+<app-data-list
+  [title]="title"
+  [cols]="cols"
+  [data]="countries"
+  [formFields]="formFields"
+  (add)="addCountry($event)"
+  (delete)="deleteCountry($event)"
+  (update)="updateCountry($event)"
+>
+</app-data-list>

@@ -13,7 +13,6 @@
 
 <dx-popup
   [width]="500"
-  [height]="250"
   [showTitle]="true"
   [title]="'Add new ' +  title.single"
   [dragEnabled]="false"
@@ -23,19 +22,27 @@
   container=".dx-viewport"
 >
   <form (submit)="handleSubmit($event)">
-    <dx-form [colCount]="1">
-      <dxi-item dataField="code" [isRequired]="true"></dxi-item>
-      <dxi-item dataField="name" [isRequired]="true"></dxi-item>
-      <dxi-item dataField="description" [isRequired]="true"></dxi-item>
-      <dxi-item
-        itemType="button"
-        [buttonOptions]="addDataButtonOptions"
-      >
-      </dxi-item>
+    <dx-form [colCount]="1" [items]="formFields" >
     </dx-form>
   </form>
 </dx-popup>
 
-<dx-data-grid  [dataSource]="data" (onInitNewRow)="onInitNewRow($event)">
-  <dxi-column *ngFor="let col of cols" [dataField]="col.field" [dataType]="col.type"></dxi-column>
+<dx-data-grid  [dataSource]="data" (onRowUpdated)="updateData($event)"  (onRowRemoved)="removeData($event)">
+  <dxo-paging [enabled]="true"></dxo-paging>
+
+  <dxo-editing
+    mode="row"
+    [allowUpdating]="true"
+    [allowDeleting]="true"
+    [allowAdding]="false"
+  >
+  </dxo-editing>
+
+  <dxi-column *ngFor="let col of cols" [dataField]="col.field" [caption]="col.caption">
+    <dxo-lookup
+      *ngIf="col.lookUp"
+      [dataSource]="col.lookUp.dataSource"
+      [displayExpr]="col.lookUp.displayExpr" >
+    </dxo-lookup>
+  </dxi-column>
 </dx-data-grid>
