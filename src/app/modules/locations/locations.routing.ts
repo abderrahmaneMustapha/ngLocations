@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BlocksComponent } from './page/blocks/blocks.component';
 import { CountriesComponent } from './page/countries/countries.component';
 import { CountysComponent } from './page/countys/countys.component';
 import { DistrictsComponent } from './page/districts/districts.component';
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'countys', component: CountysComponent},
   { path: 'states', component: StatesComponent},
   { path: 'districts', component: DistrictsComponent},
+  { path: 'blocks', component: BlocksComponent}
 ];
 
 @NgModule({

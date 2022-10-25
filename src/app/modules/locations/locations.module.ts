@@ -9,6 +9,7 @@ import { RegionsComponent } from './page/regions/regions.component';
 import { CountysComponent } from './page/countys/countys.component';
 import { StatesComponent } from './page/states/states.component';
 import { DistrictsComponent } from './page/districts/districts.component';
+import { BlocksComponent } from './page/blocks/blocks.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { DistrictsComponent } from './page/districts/districts.component';
     CountysComponent,
     StatesComponent,
     DistrictsComponent,
+    BlocksComponent,
   ],
   imports: [
     CommonModule,

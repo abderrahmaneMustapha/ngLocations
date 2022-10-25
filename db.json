@@ -211,11 +211,11 @@
   ],
   "districts": [
     {
-      "id": 0,
+      "id": 1,
       "isDefault": true,
-      "code": "141",
+      "code": "142",
       "description": "azeaze",
-      "name": "141",
+      "name": "142",
       "state": {
         "code": "14",
         "region": {
@@ -234,42 +234,18 @@
         },
         "description": "azeaze",
         "isDefault": true,
-        "name": "Ouad lili",
+        "name": "Ghilizane",
         "id": 0
       }
-    },
-    {
-      "code": "142",
-      "state": {
-        "code": "14",
-        "region": {
-          "code": "DZD01",
-          "country": {
-            "code": "DZD",
-            "description": "azeaze",
-            "isDefault": true,
-            "name": "Algeria",
-            "id": 0
-          },
-          "description": "azeaze",
-          "isDefault": true,
-          "name": "REGION DZ 01",
-          "id": 0
-        },
-        "description": "azeaze",
-        "isDefault": true,
-        "name": "Tiaret",
-        "id": 0
-      },
-      "description": "azeaze",
-      "isDefault": true,
-      "name": "Chelala",
-      "id": 1
     }
   ],
   "blocks": [
     {
+      "id": 0,
+      "isDefault": true,
       "code": "1411",
+      "description": "azeaze",
+      "name": "1411",
       "district": {
         "code": "141",
         "state": {
@@ -295,13 +271,9 @@
         },
         "description": "azeaze",
         "isDefault": true,
-        "name": "Sougeur",
+        "name": "142",
         "id": 0
-      },
-      "description": "azeaze",
-      "isDefault": true,
-      "name": "Sougeur",
-      "id": 0
+      }
     },
     {
       "code": "1412",

@@ -61,8 +61,7 @@ export class DistrictsComponent implements OnInit {
   }
 
   addDistrict(event: any) {
-    console.log(event)
-    let id = this.configService.getLastId(this.states) + 1
+    let id = this.configService.getLastId(this.districts) + 1
     this.service.addDistrict(event, this.config, id).subscribe(val => console.log(val))
   }
 
@@ -72,6 +71,7 @@ export class DistrictsComponent implements OnInit {
   }
 
   deleteDistrict(event: any) {
+    console.log(this.districts)
     let id = event.id
     this.service.deleteDistrict(this.config, id).subscribe(val => console.log(val))
   }
