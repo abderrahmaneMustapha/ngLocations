@@ -6,6 +6,7 @@ import { RegionsService } from './regions.service';
 import { DbRegion } from './regions.model';
 import { DbCountry } from '../countries/countries.model';
 import { CountriesService } from '../countries/contries.service';
+import { DataService } from 'src/app/core/service/data.service';
 
 @Component({
   selector: 'app-regions',
@@ -31,7 +32,11 @@ export class RegionsComponent implements OnInit {
 
   config: Config
 
-  constructor(private service: RegionsService, private countriesService: CountriesService, private configService: ConfigService) {
+  constructor(
+    private service: RegionsService,
+    private countriesService: CountriesService,
+    private configService: ConfigService,
+    private dataService: DataService) {
   }
 
   ngOnInit(): void {
@@ -59,7 +64,7 @@ export class RegionsComponent implements OnInit {
 
   addRegion(event: any) {
     console.log(event)
-    let id = this.configService.getLastId(this.regions) + 1
+    let id = this.dataService.getLastId(this.regions) + 1
     this.service.addRegion(event, this.config, id).subscribe(val => console.log(val))
   }
 

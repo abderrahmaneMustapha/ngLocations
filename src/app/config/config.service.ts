@@ -10,8 +10,5 @@ export class ConfigService {
     return this.http.get<Config>(this.configUrl);
   }
 
-  getLastId (data: any) {
-    return data.reduce((prev: number, curr: any) => prev = prev > Number(curr.id) ? prev : Number(curr.id), 0)
-  }
   constructor(private http: HttpClient) { }
 }

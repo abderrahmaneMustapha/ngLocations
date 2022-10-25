@@ -80,7 +80,7 @@ export class DistrictsComponent implements OnInit {
   }
 
   addDistrict(event: any) {
-    let id = this.configService.getLastId(this.districts) + 1
+    let id = this.dataService.getLastId(this.districts) + 1
     this.service.addDistrict(event, this.config, id).subscribe(val => console.log(val))
   }
 

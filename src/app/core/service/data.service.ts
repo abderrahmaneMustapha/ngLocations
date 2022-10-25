@@ -20,8 +20,11 @@ export class DataService {
   }
 
   countriesFromRegion(regions: DbRegion[]){
-
     return  uniq<DbCountry>(regions.map( region=> region.country), 'name')
+  }
+
+  getLastId (data: any) {
+    return data.reduce((prev: number, curr: any) => prev = prev > Number(curr.id) ? prev : Number(curr.id), 0)
   }
 }
 

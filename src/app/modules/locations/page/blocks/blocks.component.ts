@@ -86,7 +86,7 @@ export class BlocksComponent implements OnInit {
   }
 
   addBlock(event: any) {
-    let id = this.configService.getLastId(this.blocks) + 1
+    let id = this.dataService.getLastId(this.blocks) + 1
     this.service.addBlock(event, this.config, id).subscribe(val => console.log(val))
   }
 

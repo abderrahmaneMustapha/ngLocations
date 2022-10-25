@@ -6,6 +6,7 @@ import { CountysService } from './countys.service';
 import { CountriesService } from '../countries/contries.service';
 import { DbCounty } from './countys.model';
 import { DbCountry } from '../countries/countries.model';
+import { DataService } from 'src/app/core/service/data.service';
 
 @Component({
   selector: 'app-countys',
@@ -31,7 +32,12 @@ export class CountysComponent implements OnInit {
 
   config: Config
 
-  constructor(private service: CountysService, private countriesService: CountriesService, private configService: ConfigService) {
+  constructor(
+    private service: CountysService,
+    private countriesService: CountriesService,
+    private configService: ConfigService,
+    private dataService: DataService
+  ) {
   }
 
   ngOnInit(): void {
@@ -59,7 +65,7 @@ export class CountysComponent implements OnInit {
   }
 
   addCounty(event: any) {
-    let id = this.configService.getLastId(this.countys) + 1
+    let id = this.dataService.getLastId(this.countys) + 1
     this.service.addCounty(event, this.config, id).subscribe(val => console.log(val))
   }
 

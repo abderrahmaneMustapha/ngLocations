@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Config } from 'src/app/config/config.modal';
 import { ConfigService } from 'src/app/config/config.service';
+import { DataService } from 'src/app/core/service/data.service';
 import { Field, formField, Title } from '../../component/data-list/data-list.model';
 import { CountriesService } from './contries.service';
 import { DbCountry } from './countries.model';
@@ -27,7 +28,7 @@ export class CountriesComponent implements OnInit {
 
   config: Config
 
-  constructor(private service: CountriesService, private configService: ConfigService) {
+  constructor(private service: CountriesService, private configService: ConfigService, private dataService: DataService) {
   }
 
   ngOnInit(): void {
@@ -38,7 +39,7 @@ export class CountriesComponent implements OnInit {
   }
 
   addCountry(event: any) {
-    let id = this.configService.getLastId(this.countries) + 1
+    let id = this.dataService.getLastId(this.countries) + 1
     this.service.addCountry(event, this.config, id).subscribe(val => console.log(val))
   }
 

@@ -68,7 +68,7 @@ export class StatesComponent implements OnInit {
 
   addState(event: any) {
     console.log(event)
-    let id = this.configService.getLastId(this.regions) + 1
+    let id = this.dataService.getLastId(this.regions) + 1
     this.service.addState(event, this.config, id).subscribe(val => console.log(val))
   }
 
