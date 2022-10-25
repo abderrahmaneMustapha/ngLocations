@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Config } from 'src/app/config/config.modal';
 import { ConfigService } from 'src/app/config/config.service';
 import { DataService } from 'src/app/core/service/data.service';
+import { NavService } from 'src/app/core/service/nav.service';
+import { DataListComponent } from '../../component/data-list/data-list.component';
 import { Field, formField, Title } from '../../component/data-list/data-list.model';
 import { DbRegion } from '../regions/regions.model';
 import { RegionsService } from '../regions/regions.service';
@@ -17,6 +19,8 @@ import { StatesService } from './states.service';
 export class StatesComponent implements OnInit {
   regions: DbRegion[];
   states: DbState[];
+  filteredRegions: DbRegion[];
+
   title: Title = {single: 'state', plural: "States"}
   cols: Field[] = [
     {caption: "Code", field: "code", type: "string"},
@@ -31,9 +35,15 @@ export class StatesComponent implements OnInit {
   ]
 
   config: Config
+  @ViewChild(DataListComponent, { static: false }) dataList: DataListComponent;
 
-  constructor(private service: StatesService, private regionsService: RegionsService,  private configService: ConfigService,
-    private dataService: DataService ) {
+  constructor(
+    private service: StatesService,
+    private regionsService: RegionsService,
+    private configService: ConfigService,
+    private dataService: DataService,
+    private navService: NavService
+   ) {
   }
   ngOnInit(): void {
     this.configService.getConfig().subscribe( val => {
@@ -47,10 +57,15 @@ export class StatesComponent implements OnInit {
         let tempFormfield = this.formFields[this.formFields.length-1]
         this.formFields = this.formFields.filter((field) => field.dataField !== undefined)
 
-        let countries = this.dataService.countriesFromRegion(regions)
+        this.regions = regions
+        let countries = this.dataService.countriesFromRegion(this.regions)
+
         this.formFields.push({dataField: "country", isRequired: true, editorType: "dxSelectBox", editorOptions: {
           items: countries,
           displayExpr: 'name',
+          onValueChanged: (event:any) => {
+            this.filteredRegions = this.dataService.regionsFromCountry(event.value, this.regions)
+          }
         }})
 
         this.formFields.push({dataField: "region", isRequired: true, editorType: "dxSelectBox", editorOptions: {
@@ -59,8 +74,6 @@ export class StatesComponent implements OnInit {
         }})
 
         this.formFields.push(tempFormfield)
-
-        this.regions = regions
       })
 
     })
@@ -81,6 +94,12 @@ export class StatesComponent implements OnInit {
   deleteState(event: any) {
     let id = event.id
     this.service.deleteState(this.config, id).subscribe(val => console.log(val))
+  }
+
+  ngDoCheck(): void {
+    if (this.formFields) {
+      this.navService.updateSelectors('region', this.filteredRegions, this.dataList, this.formFields)
+    }
   }
 
 }

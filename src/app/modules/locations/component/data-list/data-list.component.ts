@@ -1,10 +1,7 @@
-import { Component, Input, ViewChild, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, ViewChild, OnInit, Output, EventEmitter} from '@angular/core';
 import { DxDataGridComponent, DxFormComponent } from "devextreme-angular";
-import { Observable } from 'rxjs';
-import { catchError} from 'rxjs/operators';
-import { CountriesService } from '../../page/countries/contries.service';
-import { Country, DbCountry } from '../../page/countries/countries.model';
-import { Field, formField, Title } from './data-list.model';
+import { DbCountry } from '../../page/countries/countries.model';
+import { Field, Title } from './data-list.model';
 
 @Component({
   selector: 'app-data-list',
@@ -36,7 +33,11 @@ export class DataListComponent implements OnInit {
   constructor() {console.log(this.fields)}
 
   ngOnInit(): void {
-    this.formFields.push({ editorType: "dxButton", itemType: "button", buttonOptions: this.addDataButtonOptions})
+    let buttonField = this.formFields.filter((field) => field.editorType === "dxButton")
+    if(!buttonField.length) {
+      this.formFields.push({ editorType: "dxButton", itemType: "button", buttonOptions: this.addDataButtonOptions})
+    }
+    this.formFields =([] as any).concat(this.formFields)
   }
 
   openModal () {

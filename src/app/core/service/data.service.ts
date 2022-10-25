@@ -19,12 +19,30 @@ export class DataService {
     return uniq<DbRegion>(states.map(state=> state.region), 'name')
   }
 
-  countriesFromRegion(regions: DbRegion[]){
+  countriesFromRegion(regions: DbRegion[]) {
     return  uniq<DbCountry>(regions.map( region=> region.country), 'name')
   }
 
   getLastId (data: any) {
     return data.reduce((prev: number, curr: any) => prev = prev > Number(curr.id) ? prev : Number(curr.id), 0)
+  }
+
+  regionsFromCountry(country: DbCountry, regions: DbRegion[]) {
+    console.log(country)
+    console.log(regions.filter(region => region.country.id === country.id))
+    return regions.filter(region => region.country.id === country.id)
+  }
+
+  statesFromRegion(region: DbRegion, states: DbState[]) {
+    return states.filter(state => state.region.id === region.id)
+  }
+
+  districtsFromState(state: DbState, districts: DbDistrict[]) {
+    return districts.filter(district => district.state.id === state.id)
+  }
+
+  blocksFromDistrict(district: DbDistrict, blocks: DbBlock[]) {
+    return blocks.filter(block => block.district.id === district.id)
   }
 }
 
