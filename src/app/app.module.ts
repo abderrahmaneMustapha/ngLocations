@@ -12,6 +12,7 @@ import { LocationsModule } from './modules/locations/locations.module';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ConfigService } from './config/config.service';
+import { DataService } from './core/service/data.service';
 
 @NgModule({
   declarations: [

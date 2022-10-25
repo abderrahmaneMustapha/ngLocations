@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Config } from 'src/app/config/config.modal';
 import { ConfigService } from 'src/app/config/config.service';
+import { DataService } from 'src/app/core/service/data.service';
 import { Field, formField, Title } from '../../component/data-list/data-list.model';
 import { DbRegion } from '../regions/regions.model';
 import { RegionsService } from '../regions/regions.service';
@@ -34,7 +35,11 @@ export class DistrictsComponent implements OnInit {
 
   config: Config
 
-  constructor(private service: DistrictsService, private stateService: StatesService, private configService: ConfigService) {
+  constructor(
+    private service: DistrictsService,
+    private stateService: StatesService,
+    private configService: ConfigService,
+    private dataService: DataService ) {
   }
 
   ngOnInit(): void {
@@ -48,6 +53,20 @@ export class DistrictsComponent implements OnInit {
         // the last item in the form
         let tempFormfield = this.formFields[this.formFields.length-1]
         this.formFields = this.formFields.filter((field) => field.dataField !== undefined)
+
+        let regions = this.dataService.regionsFromStates(states)
+        let countries = this.dataService.countriesFromRegion(regions)
+
+        this.formFields.push({dataField: "country", isRequired: true, editorType: "dxSelectBox", editorOptions: {
+          items: countries,
+          displayExpr: 'name',
+        }})
+
+        this.formFields.push({dataField: "region", isRequired: true, editorType: "dxSelectBox", editorOptions: {
+          items: regions,
+          displayExpr: 'name',
+        }})
+
         this.formFields.push({dataField: "state", isRequired: true, editorType: "dxSelectBox", editorOptions: {
           items: states,
           displayExpr: 'name',

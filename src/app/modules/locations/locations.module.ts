@@ -10,6 +10,7 @@ import { CountysComponent } from './page/countys/countys.component';
 import { StatesComponent } from './page/states/states.component';
 import { DistrictsComponent } from './page/districts/districts.component';
 import { BlocksComponent } from './page/blocks/blocks.component';
+import { DataService } from 'src/app/core/service/data.service';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { BlocksComponent } from './page/blocks/blocks.component';
     DxPopupModule,
     DxFormModule,
     FormsModule,
-  ]
+  ],
+  providers: [DataService],
 })
 export class LocationsModule { }
