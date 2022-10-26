@@ -21,9 +21,15 @@ export class CountriesComponent implements OnInit {
     {caption: "Description", field: "description", type: "string"}
   ]
   formFields: formField[] = [
-    {dataField: "code", isRequired: true, editorType: "dxTextBox"},
-    {dataField: "name", isRequired: true, editorType: "dxTextBox"},
-    {dataField: "description", isRequired: true, editorType: "dxTextBox"}
+    {dataField: "code", isRequired: true, editorType: "dxTextBox", validationRules: [
+      {type: "pattern", pattern: '[A-Z0-9]', message: "Only numbers and upper case letters is allowed"}
+    ]},
+    {dataField: "name", isRequired: true, editorType: "dxTextBox", validationRules: [
+      {type: "pattern", pattern: '[A-Z0-9a-z]', message: "only letters and numbers  are allowed"}
+    ]},
+    {dataField: "description", isRequired: true, editorType: "dxTextBox", validationRules: [
+      {type: "pattern", pattern: '[A-Z0-9a-z;:,.]', message: "only letters, number, and the following characters ',;:.' are allowed"}
+    ]},
   ]
 
   config: Config

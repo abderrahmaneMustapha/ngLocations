@@ -29,9 +29,15 @@ export class StatesComponent implements OnInit {
   ]
 
   formFields: formField[] = [
-    {dataField: "code", isRequired: true, editorType: "dxTextBox"},
-    {dataField: "name", isRequired: true, editorType: "dxTextBox"},
-    {dataField: "description", isRequired: true, editorType: "dxTextBox"},
+    {dataField: "code", isRequired: true, editorType: "dxTextBox", validationRules: [
+      {type: "pattern", pattern: '[A-Z0-9]', message: "Only numbers and upper case letters is allowed"}
+    ]},
+    {dataField: "name", isRequired: true, editorType: "dxTextBox", validationRules: [
+      {type: "pattern", pattern: '[A-Z0-9a-z]', message: "only letters and numbers  are allowed"}
+    ]},
+    {dataField: "description", isRequired: true, editorType: "dxTextBox", validationRules: [
+      {type: "pattern", pattern: '[A-Z0-9a-z;:,.]', message: "only letters, number, and the following characters ',;:.' are allowed"}
+    ]},
   ]
 
   config: Config
@@ -45,6 +51,7 @@ export class StatesComponent implements OnInit {
     private navService: NavService
    ) {
   }
+
   ngOnInit(): void {
     this.configService.getConfig().subscribe( val => {
       this.config = val
@@ -69,7 +76,7 @@ export class StatesComponent implements OnInit {
         }})
 
         this.formFields.push({dataField: "region", isRequired: true, editorType: "dxSelectBox", editorOptions: {
-          items: regions,
+          items: this.regions,
           displayExpr: 'name',
         }})
 
@@ -80,14 +87,12 @@ export class StatesComponent implements OnInit {
   }
 
   addState(event: any) {
-    console.log(event)
     let id = this.dataService.getLastId(this.regions) + 1
     this.service.addState(event, this.config, id).subscribe(val => console.log(val))
   }
 
   updateState(event: any) {
     event.region.name = event.region.name.name
-    console.log("event", event)
     this.service.updateState(event, this.config).subscribe(val => console.log(val))
   }
 
