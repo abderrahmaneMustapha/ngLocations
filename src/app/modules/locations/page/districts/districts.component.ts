@@ -1,4 +1,5 @@
 import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
+import ArrayStore from 'devextreme/data/array_store';
 import { Config } from 'src/app/config/config.modal';
 import { ConfigService } from 'src/app/config/config.service';
 import { DataService } from 'src/app/core/service/data.service';
@@ -73,28 +74,39 @@ export class DistrictsComponent implements OnInit, DoCheck {
         let countries = this.dataService.countriesFromRegion(this.regions)
 
         this.formFields.push({dataField: "country", isRequired: true, editorType: "dxSelectBox", editorOptions: {
-          items: countries,
+          dataSource: new ArrayStore({
+            data: countries,
+            key: 'name'
+          }),
           displayExpr: 'name',
+          valueExpr: 'name',
           onValueChanged: (event:any) => {
             this.filteredRegions = this.dataService.regionsFromCountry(event.value, this.regions)
           }
         }})
 
         this.formFields.push({dataField: "region", isRequired: true, editorType: "dxSelectBox", editorOptions: {
-          items: this.regions,
+          dataSource: new ArrayStore({
+            data: this.regions,
+            key: 'name'
+          }),
           displayExpr: 'name',
+          valueExpr: 'name',
           onValueChanged: (event:any) => {
             this.filteredStates = this.dataService.statesFromRegion(event.value,this.states)
           }
         }})
 
         this.formFields.push({dataField: "state", isRequired: true, editorType: "dxSelectBox", editorOptions: {
-          items: states,
+          dataSource: new ArrayStore({
+            data: states,
+            key: 'name'
+          }),
           displayExpr: 'name',
+          valueExpr: 'name',
         }})
+
         this.formFields.push(tempFormfield)
-
-
       })
 
     })

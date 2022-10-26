@@ -10,7 +10,6 @@ export class BlocksService {
   }
 
   getBlocks(config: Config) {
-    console.log(config)
     return this.http.get<DbBlock[]>(config.blocksUrl)
   }
 

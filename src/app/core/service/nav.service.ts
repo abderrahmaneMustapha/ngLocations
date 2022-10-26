@@ -16,15 +16,17 @@ export class NavService {
 
   updateSelectors(key: string, data: DbRegion[] | DbState[] | DbDistrict[], dataList: DataListComponent, formFields: formField[]) {
     let selectors = formFields.filter((field) => field.editorType === "dxSelectBox" && field?.dataField === key)
-    let diff = (data as any)?.every((d:any, index: number) => selectors[0].editorOptions.items[index].id === d.id)
+    let diff = (data as any)?.every((d:any, index: number) => {
+      return selectors[0]?.editorOptions.dataSource._array[index].id === d.id
+    })
 
     if (
       selectors.length && data &&
-      (data.length !== selectors[0].editorOptions.items.length || !diff)
+      (data.length !== selectors[0]?.editorOptions.dataSource._array.length || !diff)
     ) {
       dataList.form.itemsChildren.forEach((item)=> {
         if (item.dataField === key) {
-          item.editorOptions.items = data
+          item.editorOptions.dataSource._array = data
           dataList.ngOnInit()
         }
       })

@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild, OnInit, Output, EventEmitter} from '@angular/core';
-import { DxDataGridComponent, DxFormComponent } from "devextreme-angular";
+import { DxDataGridComponent, DxFormComponent, DxSelectBoxComponent } from "devextreme-angular";
 import { DbCountry } from '../../page/countries/countries.model';
 import { Field, Title } from './data-list.model';
 
@@ -15,7 +15,6 @@ export class DataListComponent implements OnInit {
   @Input() data: DbCountry[] = []
   @Input() fields = []
   @Input() formFields: any[] = []
-
   @Output() add: EventEmitter<any> = new EventEmitter()
   @Output() update: EventEmitter<any> = new EventEmitter()
   @Output() delete: EventEmitter<any> = new EventEmitter()
@@ -30,7 +29,9 @@ export class DataListComponent implements OnInit {
     useSubmitBehavior: true,
   }
 
-  constructor() {console.log(this.fields)}
+  prodcuts = ["az", "aze", "rt", "azzzz", "rrt"]
+
+  constructor() {}
 
   ngOnInit(): void {
     let buttonField = this.formFields.filter((field) => field.editorType === "dxButton")
@@ -56,6 +57,9 @@ export class DataListComponent implements OnInit {
     this.openModal()
   }
 
+  onValueChanged(event: any) {
+    console.log(event)
+  }
   updateData (event:any) {
     this.update.emit(event.data)
   }

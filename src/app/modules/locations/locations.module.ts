@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LocationRoutingModule } from './locations.routing';
 import { CountriesComponent } from './page/countries/countries.component';
 import { DataListComponent } from './component/data-list/data-list.component';
-import { DxButtonModule, DxDataGridModule, DxFormModule, DxPopupModule, DxBoxModule } from 'devextreme-angular';
+import { DxButtonModule, DxDataGridModule, DxFormModule, DxPopupModule, DxBoxModule, DxSelectBoxModule } from 'devextreme-angular';
 import { FormsModule } from '@angular/forms';
 import { RegionsComponent } from './page/regions/regions.component';
 import { CountysComponent } from './page/countys/countys.component';
@@ -31,6 +31,7 @@ import { DataService } from 'src/app/core/service/data.service';
     DxFormModule,
     DxBoxModule,
     FormsModule,
+    DxSelectBoxModule
   ],
   providers: [DataService],
 })

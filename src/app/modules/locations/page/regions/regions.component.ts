@@ -7,6 +7,7 @@ import { DbRegion } from './regions.model';
 import { DbCountry } from '../countries/countries.model';
 import { CountriesService } from '../countries/contries.service';
 import { DataService } from 'src/app/core/service/data.service';
+import ArrayStore from 'devextreme/data/array_store';
 
 @Component({
   selector: 'app-regions',
@@ -57,8 +58,12 @@ export class RegionsComponent implements OnInit {
         let tempFormfield = this.formFields[this.formFields.length-1]
         this.formFields = this.formFields.filter((field) => field.dataField !== undefined)
         this.formFields.push({dataField: "country", isRequired: true, editorType: "dxSelectBox", editorOptions: {
-          items: countries,
+          dataSource: new ArrayStore({
+            data: countries,
+            key: 'name'
+          }),
           displayExpr: 'name',
+          valueExpr: 'name',
         }})
         this.formFields.push(tempFormfield)
 

@@ -27,22 +27,20 @@ export class DataService {
     return data.reduce((prev: number, curr: any) => prev = prev > Number(curr.id) ? prev : Number(curr.id), 0)
   }
 
-  regionsFromCountry(country: DbCountry, regions: DbRegion[]) {
-    console.log(country)
-    console.log(regions.filter(region => region.country.id === country.id))
-    return regions.filter(region => region.country.id === country.id)
+  regionsFromCountry(countryName: string, regions: DbRegion[]) {
+    return regions.filter(region => region.country.name === countryName)
   }
 
-  statesFromRegion(region: DbRegion, states: DbState[]) {
-    return states.filter(state => state.region.id === region.id)
+  statesFromRegion(regionName: string, states: DbState[]) {
+    return states.filter(state => state.region.name === regionName)
   }
 
-  districtsFromState(state: DbState, districts: DbDistrict[]) {
-    return districts.filter(district => district.state.id === state.id)
+  districtsFromState(stateName: string, districts: DbDistrict[]) {
+    return districts.filter(district => district.state.name === stateName)
   }
 
-  blocksFromDistrict(district: DbDistrict, blocks: DbBlock[]) {
-    return blocks.filter(block => block.district.id === district.id)
+  blocksFromDistrict(districtName: string, blocks: DbBlock[]) {
+    return blocks.filter(block => block.district.name === districtName)
   }
 }
 
