@@ -17,14 +17,10 @@ export class NavService {
   updateSelectors(key: string, data: DbRegion[] | DbState[] | DbDistrict[], formFields: formField[]) {
     formFields.forEach((field)=> {
       if (field.dataField === key) {
-        field.editorOptions = {
-          dataSource: new ArrayStore<any>({
-            data: data,
-            key: 'name'
-          }),
-          displayExpr: 'name',
-          valueExpr: 'name'
-        }
+        field.editorOptions.dataSource = new ArrayStore<any>({
+          data: data,
+          key: 'name'
+        })
       }
     })
     return Object.assign( [], formFields)
