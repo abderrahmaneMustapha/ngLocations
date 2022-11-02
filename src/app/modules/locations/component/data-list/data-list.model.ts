@@ -18,10 +18,12 @@ interface LookUp {
 }
 
 export interface formField {
-  dataField: string
+  dataField?: string
   editorType: string
-  isRequired: boolean
+  isRequired?: boolean
   editorOptions?: any
+  itemType?: string
+  buttonOptions?: any
   validationRules?: RequiredRule[] | NumericRule[] | RangeRule[] | StringLengthRule[] |
                     CustomRule[] | CompareRule[] | PatternRule[] | EmailRule[] | AsyncRule[]
 }

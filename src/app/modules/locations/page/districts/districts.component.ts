@@ -1,13 +1,11 @@
-import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import ArrayStore from 'devextreme/data/array_store';
 import { Config } from 'src/app/config/config.modal';
 import { ConfigService } from 'src/app/config/config.service';
 import { DataService } from 'src/app/core/service/data.service';
 import { NavService } from 'src/app/core/service/nav.service';
-import { DataListComponent } from '../../component/data-list/data-list.component';
-import { Field, formField, Title } from '../../component/data-list/data-list.model';
+import { Field, Title } from '../../component/data-list/data-list.model';
 import { DbRegion } from '../regions/regions.model';
-import { RegionsService } from '../regions/regions.service';
 import { DbState } from '../states/states.model';
 import { StatesService } from '../states/states.service';
 import { DbDistrict } from './districts.model';
@@ -20,7 +18,7 @@ import { DistrictsService } from './districts.service';
   styleUrls: ['./districts.component.scss'],
   providers: [DistrictsService, StatesService]
 })
-export class DistrictsComponent implements OnInit, DoCheck {
+export class DistrictsComponent implements OnInit {
   states: DbState[];
   districts: DbDistrict[];
   title: Title = {single: 'district', plural: "Districts"}
@@ -30,7 +28,7 @@ export class DistrictsComponent implements OnInit, DoCheck {
     {caption: "Description", field: "description", type: "string"},
   ]
 
-  formFields: formField[] = [
+  formFields: any[] = [
     {dataField: "code", isRequired: true, editorType: "dxTextBox", validationRules: [
       {type: "pattern", pattern: '[A-Z0-9]', message: "Only numbers and upper case letters is allowed"}
     ]},
@@ -45,9 +43,13 @@ export class DistrictsComponent implements OnInit, DoCheck {
   regions: DbRegion[];
   filteredRegions: DbRegion[];
   filteredStates: DbState[];
-
-  @ViewChild(DataListComponent, { static: false }) dataList: DataListComponent;
   config: Config
+  popupVisible = false
+  addDataButtonOptions = {
+    text: 'Submit',
+    type: 'success',
+    useSubmitBehavior: true,
+  }
 
   constructor(
     private service: DistrictsService,
@@ -66,7 +68,6 @@ export class DistrictsComponent implements OnInit, DoCheck {
 
         // change the position of button and countries selector, keep button
         // the last item in the form
-        let tempFormfield = this.formFields[this.formFields.length-1]
         this.formFields = this.formFields.filter((field) => field.dataField !== undefined)
 
         this.states = states
@@ -81,7 +82,8 @@ export class DistrictsComponent implements OnInit, DoCheck {
           displayExpr: 'name',
           valueExpr: 'name',
           onValueChanged: (event:any) => {
-            this.filteredRegions = this.dataService.regionsFromCountry(event.value, this.regions)
+            let filteredRegions = this.dataService.regionsFromCountry(event.value, this.regions)
+            this.formFields = this.navService.updateSelectors('region', filteredRegions, this.formFields)
           }
         }})
 
@@ -93,7 +95,8 @@ export class DistrictsComponent implements OnInit, DoCheck {
           displayExpr: 'name',
           valueExpr: 'name',
           onValueChanged: (event:any) => {
-            this.filteredStates = this.dataService.statesFromRegion(event.value,this.states)
+            let filteredStates = this.dataService.statesFromRegion(event.value, this.states)
+            this.formFields = this.navService.updateSelectors('state', filteredStates, this.formFields)
           }
         }})
 
@@ -106,34 +109,29 @@ export class DistrictsComponent implements OnInit, DoCheck {
           valueExpr: 'name',
         }})
 
-        this.formFields.push(tempFormfield)
+        this.formFields.push({ editorType: "dxButton", itemType: "button", buttonOptions: this.addDataButtonOptions})
       })
 
     })
   }
 
-  addDistrict(event: any) {
+  openModal () {
+    this.popupVisible = !this.popupVisible
+  }
+
+  handleSubmit(event: any) {
     let id = this.dataService.getLastId(this.districts) + 1
-    this.service.addDistrict(event, this.config, id).subscribe(val => console.log(val))
+    this.service.addDistrict(event.data, this.config, id).subscribe(val => console.log(val))
   }
 
-  updateDistrict(event: any) {
-    event.state.name = event.state.name.name
-    this.service.updateDistrict(event, this.config).subscribe(val => console.log(val))
+  updateData(event: any) {
+    event.data.district.name = event.data.district.name.name
+    this.service.updateDistrict(event.data, this.config).subscribe(val => console.log(val))
   }
 
-  deleteDistrict(event: any) {
-    console.log(this.districts)
-    let id = event.id
+  removeData(event: any) {
+    let id = event.data.id
     this.service.deleteDistrict(this.config, id).subscribe(val => console.log(val))
-  }
-
-
-  ngDoCheck(): void {
-    if (this.formFields) {
-      this.navService.updateSelectors('region', this.filteredRegions, this.dataList, this.formFields)
-      this.navService.updateSelectors('state', this.filteredStates, this.dataList, this.formFields)
-    }
   }
 
 }

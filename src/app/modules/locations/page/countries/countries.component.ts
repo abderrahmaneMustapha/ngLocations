@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Config } from 'src/app/config/config.modal';
 import { ConfigService } from 'src/app/config/config.service';
 import { DataService } from 'src/app/core/service/data.service';
-import { Field, formField, Title } from '../../component/data-list/data-list.model';
+import { Field, Title } from '../../component/data-list/data-list.model';
 import { CountriesService } from './contries.service';
 import { DbCountry } from './countries.model';
 
@@ -20,7 +20,7 @@ export class CountriesComponent implements OnInit {
     {caption: "Name", field: "name", type: "string"},
     {caption: "Description", field: "description", type: "string"}
   ]
-  formFields: formField[] = [
+  formFields: any[] = [
     {dataField: "code", isRequired: true, editorType: "dxTextBox", validationRules: [
       {type: "pattern", pattern: '[A-Z0-9]', message: "Only numbers and upper case letters is allowed"}
     ]},
@@ -32,7 +32,14 @@ export class CountriesComponent implements OnInit {
     ]},
   ]
 
+  addDataButtonOptions = {
+    text: 'Submit',
+    type: 'success',
+    useSubmitBehavior: true,
+  }
+
   config: Config
+  popupVisible = false
 
   constructor(private service: CountriesService, private configService: ConfigService, private dataService: DataService) {
   }
@@ -44,17 +51,22 @@ export class CountriesComponent implements OnInit {
     })
   }
 
-  addCountry(event: any) {
+  openModal () {
+    this.popupVisible = !this.popupVisible
+  }
+
+  handleSubmit(event: any) {
     let id = this.dataService.getLastId(this.countries) + 1
-    this.service.addCountry(event, this.config, id).subscribe(val => console.log(val))
+    this.service.addCountry(event.data, this.config, id).subscribe(val => console.log(val))
   }
 
-  updateCountry(event: any) {
-    this.service.updateCountry(event, this.config).subscribe(val => console.log(val))
+  updateData(event: any) {
+    event.data.district.name = event.data.district.name.name
+    this.service.updateCountry(event.data, this.config).subscribe(val => console.log(val))
   }
 
-  deleteCountry(event: any) {
-    let id = event.id
+  removeData(event: any) {
+    let id = event.data.id
     this.service.deleteCountry(this.config, id).subscribe(val => console.log(val))
   }
 

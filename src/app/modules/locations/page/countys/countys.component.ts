@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Config } from 'src/app/config/config.modal';
 import { ConfigService } from 'src/app/config/config.service';
-import { Field, formField, Title } from '../../component/data-list/data-list.model';
+import { Field, Title } from '../../component/data-list/data-list.model';
 import { CountysService } from './countys.service';
 import { CountriesService } from '../countries/contries.service';
 import { DbCounty } from './countys.model';
@@ -25,7 +25,7 @@ export class CountysComponent implements OnInit {
     {caption: "Description", field: "description", type: "string"},
   ]
 
-  formFields: formField[] = [
+  formFields: any[] = [
     {dataField: "code", isRequired: true, editorType: "dxTextBox", validationRules: [
       {type: "pattern", pattern: '[A-Z0-9]', message: "Only numbers and upper case letters is allowed"}
     ]},
@@ -37,8 +37,14 @@ export class CountysComponent implements OnInit {
     ]},
   ]
 
-  config: Config
+  addDataButtonOptions = {
+    text: 'Submit',
+    type: 'success',
+    useSubmitBehavior: true,
+  }
 
+  config: Config
+  popupVisible = false
   constructor(
     private service: CountysService,
     private countriesService: CountriesService,
@@ -55,10 +61,6 @@ export class CountysComponent implements OnInit {
       this.countriesService.getCountries(val).subscribe(countries => {
         this.cols.push({caption: "Country", field: "country.name", type: "DbCountry", lookUp: { dataSource: countries, displayExpr:"name"}})
 
-        // change the position of button and countries selector, keep button
-        // the last item in the form
-        let tempFormfield = this.formFields[this.formFields.length-1]
-        this.formFields = this.formFields.filter((field) => field.dataField !== undefined)
         this.formFields.push({dataField: "country", isRequired: true, editorType: "dxSelectBox", editorOptions: {
           dataSource: new ArrayStore({
             data: countries,
@@ -67,7 +69,8 @@ export class CountysComponent implements OnInit {
           displayExpr: 'name',
           valueExpr: 'name',
         }})
-        this.formFields.push(tempFormfield)
+
+        this.formFields.push({ editorType: "dxButton", itemType: "button", buttonOptions: this.addDataButtonOptions})
 
         this.countries = countries
       })
@@ -75,18 +78,22 @@ export class CountysComponent implements OnInit {
     })
   }
 
-  addCounty(event: any) {
+  openModal () {
+    this.popupVisible = !this.popupVisible
+  }
+
+  handleSubmit(event: any) {
     let id = this.dataService.getLastId(this.countys) + 1
-    this.service.addCounty(event, this.config, id).subscribe(val => console.log(val))
+    this.service.addCounty(event.data, this.config, id).subscribe(val => console.log(val))
   }
 
-  updateCounty(event: any) {
-    event.country.name = event.country.name.name
-    this.service.updateCounty(event, this.config).subscribe(val => console.log(val))
+  updateData(event: any) {
+    event.data.district.name = event.data.district.name.name
+    this.service.updateCounty(event.data, this.config).subscribe(val => console.log(val))
   }
 
-  deleteCounty(event: any) {
-    let id = event.id
+  removeData(event: any) {
+    let id = event.data.id
     this.service.deleteCounty(this.config, id).subscribe(val => console.log(val))
   }
 

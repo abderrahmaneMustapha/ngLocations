@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { DataListComponent } from "src/app/modules/locations/component/data-list/data-list.component";
+import ArrayStore from "devextreme/data/array_store";
 import { formField } from "src/app/modules/locations/component/data-list/data-list.model";
 import { DbDistrict } from "src/app/modules/locations/page/districts/districts.model";
 import { DbRegion } from "src/app/modules/locations/page/regions/regions.model";
@@ -14,22 +14,19 @@ export class NavService {
     this.isDrawerOpen = drawerState
   }
 
-  updateSelectors(key: string, data: DbRegion[] | DbState[] | DbDistrict[], dataList: DataListComponent, formFields: formField[]) {
-    let selectors = formFields.filter((field) => field.editorType === "dxSelectBox" && field?.dataField === key)
-    let diff = (data as any)?.every((d:any, index: number) => {
-      return selectors[0]?.editorOptions.dataSource._array[index].id === d.id
-    })
-
-    if (
-      selectors.length && data &&
-      (data.length !== selectors[0]?.editorOptions.dataSource._array.length || !diff)
-    ) {
-      dataList.form.itemsChildren.forEach((item)=> {
-        if (item.dataField === key) {
-          item.editorOptions.dataSource._array = data
-          dataList.ngOnInit()
+  updateSelectors(key: string, data: DbRegion[] | DbState[] | DbDistrict[], formFields: formField[]) {
+    formFields.forEach((field)=> {
+      if (field.dataField === key) {
+        field.editorOptions = {
+          dataSource: new ArrayStore<any>({
+            data: data,
+            key: 'name'
+          }),
+          displayExpr: 'name',
+          valueExpr: 'name'
         }
-      })
-    }
+      }
+    })
+    return Object.assign( [], formFields)
   }
 }

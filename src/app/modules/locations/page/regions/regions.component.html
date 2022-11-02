@@ -1,10 +1,48 @@
-<app-data-list
-  [title]="title"
-  [cols]="cols"
-  [data]="regions"
-  [formFields]="formFields"
-  (add)="addRegion($event)"
-  (delete)="deleteRegion($event)"
-  (update)="updateRegion($event)"
+<dx-box
+  direction="row"
+  style="margin: 1em 0 2em 0"
 >
-</app-data-list>
+    <dxi-item baseSize="150" class="box-item orange">
+      <dx-button
+        [text]="'Add new ' +  title.single"
+        (onClick)="openModal()"
+      >
+      </dx-button>
+    </dxi-item>
+</dx-box>
+
+<dx-popup
+  [width]="500"
+  [showTitle]="true"
+  [title]="'Add new ' +  title.single"
+  [dragEnabled]="false"
+  [hideOnOutsideClick]="true"
+  [showCloseButton]="false"
+  [(visible)]="popupVisible"
+  container=".dx-viewport"
+>
+  <form (submit)="handleSubmit($event)">
+    <dx-form [colCount]="1" [items]="formFields" >
+    </dx-form>
+  </form>
+</dx-popup>
+
+<dx-data-grid  [dataSource]="regions" (onRowUpdated)="updateData($event)"  (onRowRemoved)="removeData($event)">
+  <dxo-paging [enabled]="true"></dxo-paging>
+
+  <dxo-editing
+    mode="row"
+    [allowUpdating]="true"
+    [allowDeleting]="true"
+    [allowAdding]="false"
+  >
+  </dxo-editing>
+
+  <dxi-column *ngFor="let col of cols" [dataField]="col.field" [caption]="col.caption">
+    <dxo-lookup
+      *ngIf="col.lookUp"
+      [dataSource]="col.lookUp.dataSource"
+      [displayExpr]="col.lookUp.displayExpr" >
+    </dxo-lookup>
+  </dxi-column>
+</dx-data-grid>

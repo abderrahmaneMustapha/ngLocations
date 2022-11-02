@@ -15,26 +15,26 @@ export class BlocksService {
 
   addBlock(block: DbBlock, config: Config, id: number) {
     let createParams =  {
-        id: id,
-        isDefault: true,
-        code: block.code,
-        description: block.description,
-        name: block.name,
-        district: block.district
-      }
+      id: id,
+      isDefault: true,
+      code: block.code,
+      description: block.description,
+      name: block.name,
+      district: block.district
+    }
 
     return this.http.post(config.blocksUrl, createParams)
   }
 
   updateBlock(block: DbBlock, config: Config) {
     let createParams =  {
-        id: block.id,
-        isDefault: true,
-        code: block.code,
-        description: block.description,
-        name: block.code,
-        district: block.district
-      }
+      id: block.id,
+      isDefault: true,
+      code: block.code,
+      description: block.description,
+      name: block.code,
+      district: block.district
+    }
 
     return this.http.put(config.blocksUrl + `/${block.id}`, createParams)
   }
