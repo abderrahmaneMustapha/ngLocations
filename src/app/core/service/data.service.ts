@@ -44,7 +44,7 @@ export class DataService {
   }
 }
 
-function uniq<T>(array: T[], field: string) {
+export function uniq<T>(array: T[], field: string) {
   return array.reduce((accumulator: any, current: any) => {
       let len = accumulator.filter((acc: any)=> acc[field] === current[field]).length
 
